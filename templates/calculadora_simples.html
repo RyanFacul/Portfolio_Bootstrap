@@ -1,0 +1,140 @@
+<!--Exercicio 2-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Condensed:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .calculator h1 {
+            margin-bottom: 20px;
+        }
+        .calculator input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .calculator .operations {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        .calculator .operations button {
+            width: 23%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #ffa600;
+            color: #fff;
+            cursor: pointer;
+        }
+        .calculator .operations button.selected {
+            background-color: #976405;
+        }
+        .calculator button.calculate {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #ffa600;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .calculator button.calculate:hover {
+            background-color: #976405;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Calculadora</h1>
+        <input type="number" id="value1" placeholder="Digite o primeiro valor">
+        <input type="number" id="value2" placeholder="Digite o segundo valor">
+        <div class="operations">
+            <button id="add" onclick="selectOperation('+')">+</button>
+            <button id="subtract" onclick="selectOperation('-')">-</button>
+            <button id="multiply" onclick="selectOperation('*')">*</button>
+            <button id="divide" onclick="selectOperation('/')">/</button>
+        </div>
+        <button class="calculate" onclick="calculate()">Calcular</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        let selectedOperation = '';
+
+        function selectOperation(operation) {
+            selectedOperation = operation;
+            document.querySelectorAll('.operations button').forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById(operation === '+' ? 'add' : 
+                                     operation === '-' ? 'subtract' : 
+                                     operation === '*' ? 'multiply' : 
+                                     'divide').classList.add('selected');
+        }
+
+        function calculate() {
+            const value1 = parseFloat(document.getElementById('value1').value);
+            const value2 = parseFloat(document.getElementById('value2').value);
+            let result;
+
+            if (isNaN(value1) || isNaN(value2)) {
+                result = "Por favor, insira números válidos.";
+            } else {
+                switch (selectedOperation) {
+                    case '+':
+                        result = value1 + value2;
+                        break;
+                    case '-':
+                        result = value1 - value2;
+                        break;
+                    case '*':
+                        result = value1 * value2;
+                        break;
+                    case '/':
+                        if (value2 === 0) {
+                            result = "Divisão por zero não é permitida.";
+                        } else {
+                            result = value1 / value2;
+                        }
+                        break;
+                    default:
+                        result = "Por favor, selecione uma operação.";
+                }
+            }
+
+            document.getElementById('result').innerText = `Resultado: ${result.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>

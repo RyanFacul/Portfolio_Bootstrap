@@ -1,0 +1,150 @@
+<!--Exercicio 1-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo de Média de Notas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <style>
+        .text_type {
+            font-family: "Roboto Condensed", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+          }
+        body {
+            color: white;
+            background-color: black;
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .approved {
+            color: blue;
+        }
+        .reproved {
+            color: red;
+        }
+        .button {
+            --color: #00A97F;
+            padding: 0.8em 1.7em;
+            background-color: transparent;
+            border-radius: .3em;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: .5s;
+            font-weight: 400;
+            font-size: 17px;
+            border: 1px solid;
+            font-family: inherit;
+            text-transform: uppercase;
+            color: var(--color);
+            z-index: 1;
+           }
+           
+           .button::before, .button::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            border-radius: 50%;
+            z-index: -1;
+            background-color: var(--color);
+            transition: 1s ease;
+           }
+           
+           .button::before {
+            top: -1em;
+            left: -1em;
+           }
+           
+           .button::after {
+            left: calc(100% + 1em);
+            top: calc(100% + 1em);
+           }
+           
+           .button:hover::before, .button:hover::after {
+            height: 410px;
+            width: 410px;
+           }
+           
+           .button:hover {
+            color: rgb(10, 25, 30);
+           }
+           
+           .button:active {
+            filter: brightness(.8);
+           }
+        
+           .input {
+            max-width: 190px;
+            height: 44px;
+            background-color: #d9dae6f5;
+            border-radius: .5rem;
+            padding: 0 1rem;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            transition: border-color .3s cubic-bezier(.25,.01,.25,1) 0s, color .3s cubic-bezier(.25,.01,.25,1) 0s,background .2s cubic-bezier(.25,.01,.25,1) 0s;
+          }
+          
+          .label {
+            display: block;
+            margin-bottom: .3rem;
+            font-size: .9rem;
+            font-weight: bold;
+            color: #d9dae6f5;
+            transition: color .3s cubic-bezier(.25,.01,.25,1) 0s;
+          }
+          
+          .input:hover, .input:focus, .input-group:hover .input {
+            outline: none;
+            border-color: #05060f;
+          }
+          
+          .input-group:hover .label, .input:focus {
+            color: #05060fc2;
+          }
+    </style>
+</head>
+<body class="text_type">
+    <h1>Calculadora de Média de Notas</h1>
+        <div class="container">
+        <label class="label" for="n1">Nota N1:</label>
+        <input class="input" type="number" id="n1" name="n1" required><br><br>
+        </div>
+        <div class="container">
+        <label class="label" for="n2">Nota N2:</label>
+        <input class="input" type="number" id="n2" name="n2" required><br><br>
+        </div>
+        <button class="button" type="button" onclick="calculateAverage()">Calcular Média</button>
+    <div id="result" class="result"></div>
+
+
+    <script>
+        function calculateAverage() {
+            var n1 = parseFloat(document.getElementById('n1').value);
+            var n2 = parseFloat(document.getElementById('n2').value);
+            var average = (n1 + n2) / 2.0;
+            var resultDiv = document.getElementById('result');
+
+            if (average >= 6) {
+                resultDiv.textContent = 'Nota: '+ average.toString() + ', aprovado!';
+                resultDiv.className = 'result approved';
+            } else {
+                resultDiv.textContent = 'Nota: '+ average.toString() + ', reprovado.';
+                resultDiv.className = 'result reproved';
+            }
+        }
+    </script>
+</body>
+</html>

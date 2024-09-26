@@ -1,0 +1,122 @@
+<!--Exercicio 3-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anek+Devanagari&family=Poppins&family=Roboto+Condensed:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
+    <style>
+        .tipo_font{
+            font-family: "Anek Devanagari", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+            "wdth" 100;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #121212;
+            color: #e0e0e0;
+        }
+        .calculadora {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+        }
+        .calculadora h1 {
+            margin-bottom: 20px;
+            color: #80cbc4;
+        }
+        .calculadora input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 10px 20px;
+            border: 2px solid #80cbc4;
+            background-color: #2c2c2c;
+            color: #e0e0e0;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .calculadora button {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 10px;
+            background-color: #80cbc4;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .calculadora button:hover {
+            background-color: #4db6ac;
+        }
+        #resultado {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #80cbc4;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="tipo_font">
+    <div class="calculadora">
+        <h1>Calculadora de IMC</h1>
+        <input type="text" id="nome" placeholder="Digite seu nome">
+        <input type="number" id="peso" placeholder="Digite seu peso (kg)" step="0.1">
+        <input type="number" id="altura" placeholder="Digite sua altura (m)" step="0.01">
+        <button onclick="calcularIMC()">Calcular IMC</button>
+        <div id="resultado"></div>
+    </div>
+    <script>
+        function calcularIMC() {
+            const nome = document.getElementById('nome').value;
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            let resultado;
+
+            if (!nome || isNaN(peso) || isNaN(altura) || altura <= 0) {
+                resultado = "Por favor, preencha todos os campos com valores válidos.";
+            } else {
+                const imc = peso / (altura * altura);
+                let classificacao;
+                let grauObesidade;
+
+                if (imc < 18.5) {
+                    classificacao = "Magreza";
+                    grauObesidade = "0";
+                } else if (imc < 25) {
+                    classificacao = "Normal";
+                    grauObesidade = "0";
+                } else if (imc < 30) {
+                    classificacao = "Sobrepeso";
+                    grauObesidade = "I";
+                } else if (imc < 40) {
+                    classificacao = "Obesidade";
+                    grauObesidade = "II";
+                } else {
+                    classificacao = "Obesidade Grave";
+                    grauObesidade = "III";
+                }
+
+                resultado = `Nome: ${nome}<br>IMC: ${imc.toFixed(2)}<br>Classificação: ${classificacao}<br>Obesidade (Grau): ${grauObesidade}`;
+            }
+
+            document.getElementById('resultado').innerHTML = resultado;
+        }
+    </script>
+</body>
+</html>
